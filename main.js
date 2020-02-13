@@ -46,6 +46,7 @@ const filterEvens = (array) => {
     }
   }
   console.log(`Evens: ${array}`);
+  return array;
 }
 
 filterEvens(nums);
