@@ -1,52 +1,61 @@
 
 // .map() from scratch
 
-let myArray = ["Item1", "Item2", "Item3", "Item4"];
-
-const mapFunction = (array) => {
-  let mapArray = [];
-
-  for (let i=0; i<myArray.length; i++) {
-    mapArray[i] = myArray[i] + "-changed";
+const mapArray = (transformFunc, array) => {
+  let transformedArray = [];
+  for (let i = 0; i < array.length; i++) {
+    transformedArray.push(transformFunc(array[i]));
   }
-  return mapArray;
-} 
+  return transformedArray;
+}
 
-console.log(mapFunction(myArray));
+let array = ["Value1", "Value2", "Value3", "Value4"];
+
+const changeValue = (value) => {
+  return value + "-changed";
+}
+
+console.log(mapArray(changeValue, array));
 
 
 
 // .reduce() from scratch
 
-foodOrders = [["Burgers", 4], ["Fries", 2], ["Sodas", 4]];
-
-const reduceFunction = (array) => {
-  let accumulator = 0;
-
-  for (let i=0; i<array.length; i++) {
-    accumulator += array[i][1];
+const reduceFunc = (func, array, accumulator) => {
+  for (let i = 0; i < array.length; i++) {
+    accumulator += func(array, i);
   }
-  console.log (`You have placed ${accumulator} orders.`);
   return accumulator;
 }
 
-reduceFunction(foodOrders); 
+let foodOrders = [["Burgers", 4], ["Fries", 2], ["Sodas", 4]];
+let orderTotal = (array, order) => { 
+  return array[order][1]; 
+};
+
+console.log(reduceFunc(orderTotal, foodOrders, 0));
+
+
 
 
 // .filter() from scratch
 
-let nums = [2, 4, 5, 8, 9, 10, 15];
 
-
-const filterEvens = (array) => {
-
-  for (let i=0; i<array.length; i++) {
-    if (array[i] % 2 !== 0) {
+const filterByTrue = (filterFunc, array) => {
+  for (let i = 0; i < array.length; i++) {
+    if (filterFunc(array[i]) !== true) {
       array.splice(i, 1);
     }
   }
-  console.log(`Evens: ${array}`);
   return array;
 }
 
-filterEvens(nums);
+let nums = [2, 4, 5, 8, 9, 10, 15];
+
+const isEven = (number) => {
+  if (number % 2 === 0) {
+    return true;
+  }
+}
+
+console.log(filterByTrue(isEven, nums));
